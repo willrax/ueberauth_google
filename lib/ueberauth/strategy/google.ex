@@ -18,6 +18,7 @@ defmodule Ueberauth.Strategy.Google do
     scopes = conn.params["scope"] || option(conn, :default_scope)
     opts = [ scope: scopes ]
     if conn.params["state"], do: opts = Keyword.put(opts, :state, conn.params["state"])
+    if conn.params["hd"], do: opts = Keyword.put(opts, :hd, conn.params["hd"])
     opts = Keyword.put(opts, :redirect_uri, callback_url(conn))
 
     redirect!(conn, Ueberauth.Strategy.Google.OAuth.authorize_url!(opts))
